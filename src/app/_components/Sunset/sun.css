@@ -7,6 +7,7 @@ body {
 }
 .sunwrapper {
   font-size: 1px;
+  padding-bottom:40px;
 }
 
 
@@ -89,8 +90,8 @@ body {
 
 .day .mouth {
   margin-top: 15em;
-  height: 15em;
-  width: 15em;
+  height: 19em;
+  width: 21em;
   diplay: block;
   border-radius: 0em 0em 50% 50%;
   background-color: transparent;
@@ -121,6 +122,8 @@ body {
   animation-duration: 5s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-out;
+  left: -2em;
+    top: 3em;
 }
 
 .day .mouth:after {
@@ -133,6 +136,7 @@ body {
   left: -6em;
   background-color: #151843;
   border-radius: 50%;
+  
 }
 
 .day .mouth:before {
@@ -142,7 +146,7 @@ body {
   position: absolute;
   display: block;
   top: -3em;
-  left: 15em;
+  left: 9em;
   background-color: #151843;
   border-radius: 50%
 }
@@ -152,7 +156,7 @@ body {
   height: 20em;
   display: block;
   float: left;
-  margin-right: 10em;
+  margin-right: 13em;
   animation-name: eye-blink;
   animation-duration: 10s;
   animation-iteration-count: infinite;
@@ -187,8 +191,8 @@ body {
 
 
 .eye-in {
-  width: 15em;
-  height: 8em;
+  width: 25em;
+  height: 13em;
   display: block;
   position: absolute;
   top: 5em;
@@ -377,24 +381,25 @@ body {
 /* DAY TIME */
 
 #button {
-      border: 2em solid #f1c40f;
-    padding: 20em 20em;
-    font-size: 16em;
+      border: 2px solid #f1c40f;
+    padding: 20px 20px;
+    font-size: 16px;
     text-transform: uppercase;
     font-weight: bold;
-    letter-spacing: 3em;
+    letter-spacing: 3px;
     color: #f1c40f;
     text-decoration: none;
     position: absolute;
+    z-index:1;
     display: block;
     text-align: center;
     background: transparent;
     text-shadow: none;
     font-family: sans-serif;
     margin: 0 auto;
-    bottom: -30em;
-    border-radius: 100em;
-    max-width: 200em;
+    bottom: 36px;
+    border-radius: 100px;
+    max-width: 200px;
     left: 0;
     right: 0;
   transition:all 0.2s ease;
@@ -405,19 +410,19 @@ body {
 }
 
 #button:hover {
-      border: 2em solid #f1c40f;
+      border: 2px solid #f1c40f;
     color: #fff;
    background: #f1c40f;
 }
 
 .day #button {
-     border: 2em solid #ff8603;
+     border: 2px solid #ff8603;
     color: #ff8603; 
    background: transparent;
 }
 
 .day #button:hover {
-      border: 2em solid #ff8603;
+      border: 2px solid #ff8603;
     color: #fff;
    background: #ff8603;
 }
