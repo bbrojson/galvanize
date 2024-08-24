@@ -11,6 +11,8 @@
   "author": "blazej.brojson@gmail.com",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^22.5.0"
-  }
+    "@types/node": "^22.5.0",
+    "typescript": "^5.5.3"
+  },
+  "dependencies": {}
 }
