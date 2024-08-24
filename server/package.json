@@ -2,9 +2,9 @@
   "name": "galvanize-server",
   "version": "1.0.0",
   "description": "Galvanize server",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "node dist/index.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
