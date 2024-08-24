@@ -1,5 +1,6 @@
 import http from "http";
 
+const port = process.env.PORT ?? 8080;
 let soHowDoseItWorkQuestionMark = 0;
 
 const server = http.createServer(function (req, res) {
@@ -8,7 +9,7 @@ const server = http.createServer(function (req, res) {
   res.end(JSON.stringify({ soHowDoseItWorkQuestionMark }));
 });
 
-server.listen(3000, () => {
+server.listen(port, () => {
   //Message to print on the console after a successful run
   console.log("Server running on port 3000");
 });

@@ -4,15 +4,17 @@
   "description": "Galvanize server",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "nodemon src/index.ts",
     "build": "tsc",
+    "ts.check": "tsc --project tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "blazej.brojson@gmail.com",
+  "author": "bbrojson",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^22.5.0",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
-  },
-  "dependencies": {}
+  }
 }
