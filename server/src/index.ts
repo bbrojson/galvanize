@@ -1,15 +1,17 @@
-import http from "http";
+import { createServer } from "https";
+import { WebSocketServer } from "ws";
 
-const port = process.env.PORT ?? 8080;
-let soHowDoseItWorkQuestionMark = 0;
+const server = createServer({});
+const wss = new WebSocketServer({ server });
 
-const server = http.createServer(function (req, res) {
-  res.setHeader("Content-Type", "application/json");
-  ++soHowDoseItWorkQuestionMark;
-  res.end(JSON.stringify({ soHowDoseItWorkQuestionMark }));
+wss.on("connection", function connection(ws) {
+  ws.on("error", console.error);
+
+  ws.on("message", function message(data) {
+    console.log("received: %s", data);
+  });
+
+  ws.send("something");
 });
 
-server.listen(port, () => {
-  //Message to print on the console after a successful run
-  console.log("Server running on port 3000");
-});
+server.listen(8080);
