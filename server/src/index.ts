@@ -1,30 +1,43 @@
 import http from "http";
 import WebSocket from "ws";
 
-const PORT = 8080;
+console.log("Hello pm2 how are you today?");
+
+const PORT = 80;
 const DB = { message: "The DB is a lie!", voteMetter: 0 };
 
 const server = http.createServer(function (req, res) {
-  console.log("server: request");
-
-  DB.voteMetter += 1;
-
   res.setHeader("Content-Type", "application/json");
+  res.statusCode = 200;
   res.end(JSON.stringify({ voteMetter: DB.voteMetter }));
 });
 
 const wss = new WebSocket.Server({ server });
 
 wss.on("connection", (ws) => {
-  console.log("WebSocket connection established");
+  console.log("WebSocket connection established: ", ws);
 
-  ws.send("Welcome! You are now connected.");
+  ws.on("message", (rawData) => {
+    let value = -1;
+    try {
+      let buffer = rawData.valueOf() as Buffer;
+      value = buffer.readUInt8(0);
+    } catch (error) {
+      return;
+    }
 
-  ws.on("message", (message) => {
-    DB.voteMetter += 1;
-    console.log(`Received: ${String(message)}`);
+    if (value > 1 || value < 0) return;
 
-    ws.send(DB.voteMetter);
+    console.log(`==> Vote received: ${value}/${DB.voteMetter}`);
+    if (value === 1) {
+      DB.voteMetter += 1;
+    } else if (value === 0) {
+      DB.voteMetter -= 1;
+    }
+
+    const view = new Uint8Array(new ArrayBuffer(1));
+    view[0] = DB.voteMetter;
+    ws.send(view);
   });
 
   ws.on("error", (err) => {

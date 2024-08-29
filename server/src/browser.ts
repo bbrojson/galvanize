@@ -1,4 +1,5 @@
-const socket = new WebSocket("ws://localhost:8080");
+// const socket = new WebSocket("ws://57.128.201.101:80");
+const socket = new WebSocket("ws://localhost:80");
 
 socket.addEventListener("open", function () {
   console.log("handshake");
@@ -19,5 +20,8 @@ socket.addEventListener("error", function (event) {
 });
 
 window.addEventListener("click", () => {
-  socket.send("hey you!");
+  const view = new Uint8Array(new ArrayBuffer(1));
+  view[0] = 1;
+  console.log("send:", view);
+  socket.send(view);
 });
