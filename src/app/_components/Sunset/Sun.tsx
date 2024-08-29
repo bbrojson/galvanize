@@ -2,10 +2,23 @@
 import React from "react";
 import "./sun.css";
 import { SunButton } from "./SunButton";
+import { useSunWebSockets } from "./utils/useSunWebSockets";
+import { oneByte } from "./utils/oneByte";
 
 export function Sun() {
+  const socket = useSunWebSockets((nr: number) => {
+    console.log("cb", nr);
+  });
+
+  function handleSunset() {
+    socket?.send(oneByte(1));
+  }
+
   return (
     <main className="flex h-screen flex-col items-center justify-center overflow-hidden">
+      <button type="button" onClick={handleSunset}>
+        Click me
+      </button>
       <SunButton />
       <div className="sunwrapper">
         <div id="sun">

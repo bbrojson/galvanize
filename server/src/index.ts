@@ -6,22 +6,30 @@ import path from "node:path";
 console.log("Hello pm2 how are you today?");
 
 const options = {
-  key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
-  cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
+  key: fs.readFileSync(path.join(__dirname, "../cert", "key.pem")),
+  cert: fs.readFileSync(path.join(__dirname, "../cert", "cert.pem")),
 };
-const PORT = 443;
-const DB = { message: "The DB is a lie!", voteMetter: 0 };
+const PORT = 3443;
+const DB = {
+  message: "The DB is a lie!",
+  voteMetter: 0,
+  statistics: {
+    connections: 0,
+    votesAdd: 0,
+    votesSub: 0,
+  },
+};
 
 const server = https.createServer(options, function (req, res) {
   res.setHeader("Content-Type", "application/json");
   res.statusCode = 200;
-  res.end(JSON.stringify({ voteMetter: DB.voteMetter }));
+  res.end(JSON.stringify({ data: DB }));
 });
 
 const wss = new WebSocket.Server({ server });
 
 wss.on("connection", (ws) => {
-  console.log("WebSocket connection established: ", ws);
+  DB.statistics.connections++;
 
   ws.on("message", (rawData) => {
     let value = -1;
@@ -36,8 +44,10 @@ wss.on("connection", (ws) => {
 
     console.log(`==> Vote received: ${value}/${DB.voteMetter}`);
     if (value === 1) {
+      DB.statistics.votesAdd++;
       DB.voteMetter += 1;
     } else if (value === 0) {
+      DB.statistics.votesSub++;
       DB.voteMetter -= 1;
     }
 

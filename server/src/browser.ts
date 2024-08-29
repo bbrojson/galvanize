@@ -1,5 +1,4 @@
-// const socket = new WebSocket("ws://57.128.201.101:80");
-const socket = new WebSocket("ws://localhost:80");
+const socket = new WebSocket("wss://localhost:443");
 
 socket.addEventListener("open", function () {
   console.log("handshake");
