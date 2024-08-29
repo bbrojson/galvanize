@@ -1,12 +1,18 @@
-import http from "http";
+import https from "node:https";
 import WebSocket from "ws";
+import fs from "node:fs";
+import path from "node:path";
 
 console.log("Hello pm2 how are you today?");
 
-const PORT = 80;
+const options = {
+  key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
+  cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
+};
+const PORT = 443;
 const DB = { message: "The DB is a lie!", voteMetter: 0 };
 
-const server = http.createServer(function (req, res) {
+const server = https.createServer(options, function (req, res) {
   res.setHeader("Content-Type", "application/json");
   res.statusCode = 200;
   res.end(JSON.stringify({ voteMetter: DB.voteMetter }));
