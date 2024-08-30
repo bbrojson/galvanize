@@ -88,7 +88,7 @@
 
 
 
-.day .mouth {
+.SUN .mouth {
   margin-top: 15em;
   height: 19em;
   width: 21em;
@@ -126,7 +126,7 @@
     top: 3em;
 }
 
-.day .mouth:after {
+.SUN .mouth:after {
   content: "";
   width: 6em;
   height: 6em;
@@ -139,7 +139,7 @@
   
 }
 
-.day .mouth:before {
+.SUN .mouth:before {
   content: "";
   width: 6em;
   height: 6em;
@@ -151,7 +151,7 @@
   border-radius: 50%
 }
 
-.day .eye {
+.SUN .eye {
   width: 20em;
   height: 20em;
   display: block;
@@ -175,7 +175,7 @@
 
 }
 
-.day .eye-in {
+.SUN .eye-in {
   content: "";
   width: 20em;
   height: 20em;
@@ -415,30 +415,30 @@
    background: #f1c40f;
 }
 
-.day #button {
+.SUN #button {
      border: 2px solid #ff8603;
     color: #ff8603; 
    background: transparent;
 }
 
-.day #button:hover {
+.SUN #button:hover {
       border: 2px solid #ff8603;
     color: #fff;
    background: #ff8603;
 }
 
-.day .planet {
+.SUN .planet {
   background-color: #ffdb01 !important;
   box-shadow: inset -40em 0em 0em #ff8603, inset 20em 0em 0em #ffffff, inset -50em 0em 0em 20em #ffd201, 0em 0em 0em 20em  rgba(255, 210, 1, 0.2), 0em 0em 0em 40em  rgba(255, 210, 1, 0.1), 0em 0em 0em 60em  rgba(255, 210, 1, 0.05);
 }
 
-.day .planet:after {
+.SUN .planet:after {
   background-color: #ffd201;
   box-shadow: 40em -20em 0em -10em #ffd201, 40em 10em 0em -15em #ffd201;
 }
 
-.day .star:after,
-.day .star:before {
+.SUN .star:after,
+.SUN .star:before {
   animation-name: none;
   transform: none;
   width: 50em;
@@ -446,19 +446,19 @@
   border-radius: 50%
 }
 
-.day .star:after {
+.SUN .star:after {
   left: 150%;
   box-shadow: -50em -25em 0em 10em white, -10em -25em 0em -5em white, inset -7em 0em 0em 3em #ebf3fe;
 }
 
-.day .star:before {
+.SUN .star:before {
   left: 50%;
   top: 0;
   border-radius: 0;
   width: 75em;
 }
 
-.day {
+.SUN {
 
 }
 
@@ -484,22 +484,22 @@
   top:-50em;
 }
 
-.day #nightbg {
+.SUN #nightbg {
   transform: scale(30);
 }
 
-.day .star {
+.SUN .star {
   width: 50em;
   height: 50em;
   animation-name: wiggle;
   animation-duration: 10s;
 }
 
-.day .zzz1:after, .day .zzz2:after, .day .zzz3:after {
+.SUN .zzz1:after, .SUN .zzz2:after, .SUN .zzz3:after {
   content:"!";
 }
 
-.day .zzz1, .day .zzz2, .day .zzz3{
+.SUN .zzz1, .SUN .zzz2, .SUN .zzz3{
   color:white;
   top:0;
   right:10%;
@@ -511,13 +511,13 @@
   opacity:1;
 }
 
-.day .zzz2 {
+.SUN .zzz2 {
   animation-delay: 0.2s;
   right:15% !important; 
   top:3%;
 }
 
-.day .zzz3 {
+.SUN .zzz3 {
   animation-delay: 0.4s;
   right:10% !important;
   top:6%;

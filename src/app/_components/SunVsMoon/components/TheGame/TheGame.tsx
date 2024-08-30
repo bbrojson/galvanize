@@ -4,18 +4,21 @@ import "./sun.css";
 import { useSunWebSockets } from "./hooks/useSunWebSockets";
 import { oneByte } from "../../utils/oneByte";
 import { SunButton } from "./SunButton";
+import { useGetMood } from "../../store/SunVsMoonProvider";
 
 export function TheGame() {
   const socket = useSunWebSockets((nr: number) => {
     console.log("cb", nr);
   });
 
+  const themeClassName = useGetMood();
+
   function handleSunset() {
     socket?.send(oneByte(1));
   }
 
   return (
-    <main className="flex h-screen flex-col items-center justify-center overflow-hidden">
+    <main className={themeClassName}>
       <button type="button" onClick={handleSunset}>
         Click me
       </button>

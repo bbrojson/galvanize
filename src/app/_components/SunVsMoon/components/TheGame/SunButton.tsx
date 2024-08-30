@@ -2,7 +2,7 @@ import React from "react";
 
 export function SunButton() {
   function handleSunset() {
-    window.document.body.classList.toggle("day");
+    window.document.body.classList.toggle("SUN");
   }
   return (
     <button
