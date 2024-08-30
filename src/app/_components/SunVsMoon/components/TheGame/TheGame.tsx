@@ -10,13 +10,13 @@ export function TheGame() {
 
   const socket = useSunWebSockets({
     openCb: () => {
-      context.setState(STEPS.VOTED);
+      setTimeout(() => context.setState(STEPS.VOTED), 2456);
     },
     errorCb: () => {
       context.setState(STEPS.CONECTION_ERROR);
     },
     messageCb: (nr) => {
-      console.log("nr", nr);
+      context.setVotes(nr);
     },
     closeCb: () => {
       context.setState(STEPS.CHOOSE_SIDE);
@@ -29,13 +29,15 @@ export function TheGame() {
 
   return (
     <main className={context.mood}>
-      <button
-        className="absolute bottom-9 left-0 right-0 z-10"
-        id="button"
-        onClick={handleSunset}
-      >
-        Click me
-      </button>
+      {context.state === STEPS.VOTED ? (
+        <button
+          className="absolute bottom-9 left-0 right-0 z-10"
+          id="button"
+          onClick={handleSunset}
+        >
+          Click me {context.votes}
+        </button>
+      ) : null}
       <div className="sunwrapper">
         <div id="sun">
           <div id="nightbg"></div>

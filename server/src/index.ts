@@ -45,14 +45,17 @@ wss.on("connection", (ws) => {
 
     console.log(`==> Vote received: ${value}/${DB.voteMetter}`);
 
-    if (Math.abs(DB.voteMetter) >= VOTES_LIMIT) return;
-
     if (value === 1) {
       DB.statistics.votesAdd++;
-      DB.voteMetter += 1;
+
+      if (DB.voteMetter < VOTES_LIMIT) {
+        DB.voteMetter += 1;
+      }
     } else if (value === 0) {
       DB.statistics.votesSub++;
-      DB.voteMetter -= 1;
+      if (DB.voteMetter <= -1 * VOTES_LIMIT) {
+        DB.voteMetter -= 1;
+      }
     }
 
     const view = new Int8Array(new ArrayBuffer(1));

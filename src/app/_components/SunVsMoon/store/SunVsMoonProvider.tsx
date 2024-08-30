@@ -17,13 +17,17 @@ export const MOOD = {
 const initialData: {
   state: keyof typeof STEPS;
   mood: undefined | keyof typeof MOOD;
+  votes: number;
   setState: (s: keyof typeof STEPS) => void;
   setMood: (s: keyof typeof MOOD) => void;
+  setVotes: (s: number) => void;
 } = {
   state: STEPS.CHOOSE_SIDE,
   mood: undefined,
+  votes: 0,
   setState: () => void 0,
   setMood: () => void 0,
+  setVotes: () => void 0,
 };
 
 const SunVsMoonContext = createContext(initialData);
@@ -31,15 +35,18 @@ const SunVsMoonContext = createContext(initialData);
 export function SunVsMoonProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState(initialData.state);
   const [mood, setMood] = useState(initialData.mood);
+  const [votes, setVotes] = useState(0);
 
   const value: typeof initialData = useMemo(
     () => ({
       state,
       mood,
+      votes,
       setState,
       setMood,
+      setVotes,
     }),
-    [mood, state],
+    [mood, state, votes],
   );
 
   return (
@@ -55,20 +62,4 @@ export function useSunVsMoonContext() {
   if (!context) throw new Error("SunVsMoonContext is missing.");
 
   return context;
-}
-
-export function useSunVsMoonState() {
-  const context = useContext(SunVsMoonContext);
-
-  if (!context) throw new Error("SunVsMoonContext is missing.");
-
-  return [context.state, context.setState] as const;
-}
-
-export function useGetMood() {
-  const context = useContext(SunVsMoonContext);
-
-  if (!context) throw new Error("SunVsMoonContext is missing.");
-
-  return context.mood;
 }
