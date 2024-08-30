@@ -2,14 +2,10 @@ import https from "node:https";
 import WebSocket from "ws";
 import fs from "node:fs";
 import path from "node:path";
-
 console.log("Hello pm2 how are you today?");
 
-const options = {
-  key: fs.readFileSync(path.join(__dirname, "../cert", "key.pem")),
-  cert: fs.readFileSync(path.join(__dirname, "../cert", "cert.pem")),
-};
 const PORT = 3443;
+const VOTES_LIMIT = 25; // votes that can be cast before the counter is stopped.
 const DB = {
   message: "The DB is a lie!",
   voteMetter: 0,
@@ -18,6 +14,11 @@ const DB = {
     votesAdd: 0,
     votesSub: 0,
   },
+};
+
+const options = {
+  key: fs.readFileSync(path.join(__dirname, "../cert", "key.pem")),
+  cert: fs.readFileSync(path.join(__dirname, "../cert", "cert.pem")),
 };
 
 const server = https.createServer(options, function (req, res) {
@@ -43,6 +44,9 @@ wss.on("connection", (ws) => {
     if (value > 1 || value < 0) return;
 
     console.log(`==> Vote received: ${value}/${DB.voteMetter}`);
+
+    if (Math.abs(DB.voteMetter) >= VOTES_LIMIT) return;
+
     if (value === 1) {
       DB.statistics.votesAdd++;
       DB.voteMetter += 1;
@@ -51,7 +55,7 @@ wss.on("connection", (ws) => {
       DB.voteMetter -= 1;
     }
 
-    const view = new Uint8Array(new ArrayBuffer(1));
+    const view = new Int8Array(new ArrayBuffer(1));
     view[0] = DB.voteMetter;
     ws.send(view);
   });

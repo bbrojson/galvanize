@@ -19,7 +19,7 @@ socket.addEventListener("error", function (event) {
 });
 
 window.addEventListener("click", () => {
-  const view = new Uint8Array(new ArrayBuffer(1));
+  const view = new Int8Array(new ArrayBuffer(1));
   view[0] = 1;
   console.log("send:", view);
   socket.send(view);

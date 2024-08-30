@@ -1,10 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 
-export const useSunWebSockets = (cb: (nr: number) => void) => {
+export const useSunWebSockets = ({
+  openCb,
+  errorCb,
+  closeCb,
+  messageCb,
+}: {
+  openCb: (event: Event) => void;
+  closeCb: (event: CloseEvent) => void;
+  errorCb: (event: Event) => void;
+  messageCb: (nr: number) => void;
+}) => {
   const [data, setData] = useState<WebSocket | undefined>(undefined);
   const isFetching = useRef(false);
   const isSuccess = useRef(false);
-  const cbRef = useRef(cb);
+  const cbRef = useRef({ openCb, errorCb, messageCb, closeCb });
 
   useEffect(() => {
     if (isFetching.current) return;
@@ -12,34 +22,38 @@ export const useSunWebSockets = (cb: (nr: number) => void) => {
 
     const socket = new WebSocket(process.env.NEXT_PUBLIC_SUN_API_URL ?? "");
 
-    socket.addEventListener("open", () => {
+    socket.addEventListener("open", (message) => {
       setData(socket);
       isSuccess.current = true;
       console.log("ws: open");
+      cbRef.current.openCb(message);
     });
 
     socket.addEventListener("message", function (event: MessageEvent<Blob>) {
       void event.data.arrayBuffer().then((buffer) => {
-        const int8view = new Uint8Array(buffer);
+        const int8view = new Int8Array(buffer);
         const firstByte = int8view[0];
 
         if (firstByte) {
           console.log("ws: message", firstByte);
-          cbRef.current(firstByte);
+          cbRef.current.messageCb(firstByte);
         } else {
           console.error("ws: message UNEXPECTED", firstByte);
+          // throw new Error('silent error')
         }
       });
     });
 
-    socket.addEventListener("close", function () {
+    socket.addEventListener("close", function (error) {
       console.log("ws: Disconnected from WS Server");
+      cbRef.current.closeCb(error);
     });
 
     socket.addEventListener("error", function (event) {
       console.error("ws: Connection Error: ", event);
       isFetching.current = false;
       isSuccess.current = false;
+      cbRef.current.errorCb(event);
     });
 
     return () => {

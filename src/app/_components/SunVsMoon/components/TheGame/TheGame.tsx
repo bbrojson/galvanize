@@ -3,26 +3,39 @@ import React from "react";
 import "./sun.css";
 import { useSunWebSockets } from "./hooks/useSunWebSockets";
 import { oneByte } from "../../utils/oneByte";
-import { SunButton } from "./SunButton";
-import { useGetMood } from "../../store/SunVsMoonProvider";
+import { STEPS, useSunVsMoonContext } from "../../store/SunVsMoonProvider";
 
 export function TheGame() {
-  const socket = useSunWebSockets((nr: number) => {
-    console.log("cb", nr);
+  const context = useSunVsMoonContext();
+
+  const socket = useSunWebSockets({
+    openCb: () => {
+      context.setState(STEPS.VOTED);
+    },
+    errorCb: () => {
+      context.setState(STEPS.CONECTION_ERROR);
+    },
+    messageCb: (nr) => {
+      console.log("nr", nr);
+    },
+    closeCb: () => {
+      context.setState(STEPS.CHOOSE_SIDE);
+    },
   });
 
-  const themeClassName = useGetMood();
-
   function handleSunset() {
-    socket?.send(oneByte(1));
+    socket?.send(oneByte(context.mood === "SUN" ? 1 : 0));
   }
 
   return (
-    <main className={themeClassName}>
-      <button type="button" onClick={handleSunset}>
+    <main className={context.mood}>
+      <button
+        className="absolute bottom-9 left-0 right-0 z-10"
+        id="button"
+        onClick={handleSunset}
+      >
         Click me
       </button>
-      <SunButton />
       <div className="sunwrapper">
         <div id="sun">
           <div id="nightbg"></div>

@@ -1,16 +1,19 @@
 import React from "react";
 import { Button } from "../../shared/Button";
-import { MOOD, STEPS, useSunVsMoonState } from "../store/SunVsMoonProvider";
+import { MOOD, STEPS, useSunVsMoonContext } from "../store/SunVsMoonProvider";
 
 export function SunOrMoon() {
-  const [, setState] = useSunVsMoonState();
+  const context = useSunVsMoonContext();
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center bg-gradient-to-b from-[#add8e6] from-20% to-[#151843] to-80%">
       <Button
         variant="sun"
         className="absolute top-20"
-        onClick={() => void setState(STEPS.INITIALIZATION, MOOD.SUN)}
+        onClick={() => {
+          void context.setMood(MOOD.SUN);
+          void context.setState(STEPS.INITIALIZATION);
+        }}
       >
         Sun
       </Button>
@@ -18,7 +21,10 @@ export function SunOrMoon() {
         Pick your mood?
       </h1>
       <Button
-        onClick={() => void setState(STEPS.INITIALIZATION, MOOD.MOON)}
+        onClick={() => {
+          void context.setMood(MOOD.MOON);
+          void context.setState(STEPS.INITIALIZATION);
+        }}
         variant="moon"
         className="absolute bottom-20"
       >
