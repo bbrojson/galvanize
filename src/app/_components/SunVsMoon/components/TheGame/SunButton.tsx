@@ -5,7 +5,11 @@ export function SunButton() {
     window.document.body.classList.toggle("day");
   }
   return (
-    <button id="button" onClick={handleSunset}>
+    <button
+      className="absolute bottom-9 left-0 right-0 z-10"
+      id="button"
+      onClick={handleSunset}
+    >
       Click me
     </button>
   );

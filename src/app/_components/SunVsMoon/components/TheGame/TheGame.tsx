@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import "./sun.css";
+import { useSunWebSockets } from "./hooks/useSunWebSockets";
+import { oneByte } from "../../utils/oneByte";
 import { SunButton } from "./SunButton";
-import { useSunWebSockets } from "./utils/useSunWebSockets";
-import { oneByte } from "./utils/oneByte";
 
-export function Sun() {
+export function TheGame() {
   const socket = useSunWebSockets((nr: number) => {
     console.log("cb", nr);
   });
