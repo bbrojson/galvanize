@@ -1,4 +1,4 @@
-import https from "node:https";
+import http from "node:http";
 import WebSocket from "ws";
 import fs from "node:fs";
 import path from "node:path";
@@ -21,7 +21,7 @@ const options = {
   cert: fs.readFileSync(path.join(__dirname, "../../../certs", "cert.pem")),
 };
 
-const server = https.createServer(options, function (req, res) {
+const server = http.createServer(function (req, res) {
   res.setHeader("Content-Type", "application/json");
   res.statusCode = 200;
   res.end(JSON.stringify({ data: DB }));
