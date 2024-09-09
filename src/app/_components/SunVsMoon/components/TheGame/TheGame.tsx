@@ -27,6 +27,26 @@ export function TheGame() {
     socket?.send(oneByte(context.mood === "SUN" ? 1 : 0));
   }
 
+  function getButtonState() {
+    switch (context.state) {
+      case STEPS.INITIALIZATION:
+        return {
+          theme: "hidden",
+          text: "Let's wait.",
+        };
+      case STEPS.VOTED: {
+      }
+      case STEPS.ALLLOWED_TO_VOTE_AGAIN: {
+      }
+      default:
+        return {
+          theme: "default",
+          text: `Click me ${context.votes}`,
+        };
+    }
+  }
+  console.log("getButtonState", getButtonState());
+
   return (
     <main className={context.mood}>
       {context.state === STEPS.VOTED ? (
