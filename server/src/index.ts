@@ -8,7 +8,7 @@ const PORT = 8080; // 3443;
 const VOTES_LIMIT = 25; // votes that can be cast before the counter is stopped.
 const DB = {
   message: "The DB is a lie!",
-  voteMetter: 0,
+  voteMeter: 0,
   statistics: {
     connections: 0,
     votesAdd: 0,
@@ -43,23 +43,23 @@ wss.on("connection", (ws) => {
 
     if (value > 1 || value < 0) return;
 
-    console.log(`==> Vote received: ${value}/${DB.voteMetter}`);
+    console.log(`==> Vote received: ${value}/${DB.voteMeter}`);
 
     if (value === 1) {
       DB.statistics.votesAdd++;
 
-      if (DB.voteMetter < VOTES_LIMIT) {
-        DB.voteMetter += 1;
+      if (DB.voteMeter < VOTES_LIMIT) {
+        DB.voteMeter += 1;
       }
     } else if (value === 0) {
       DB.statistics.votesSub++;
-      if (DB.voteMetter <= -1 * VOTES_LIMIT) {
-        DB.voteMetter -= 1;
+      if (DB.voteMeter > -1 * VOTES_LIMIT) {
+        DB.voteMeter -= 1;
       }
     }
 
     const view = new Int8Array(new ArrayBuffer(1));
-    view[0] = DB.voteMetter;
+    view[0] = DB.voteMeter;
     ws.send(view);
   });
 

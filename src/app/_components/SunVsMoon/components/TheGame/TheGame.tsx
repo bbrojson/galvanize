@@ -13,7 +13,7 @@ export function TheGame() {
       setTimeout(() => context.setState(STEPS.VOTED), 2456);
     },
     errorCb: () => {
-      context.setState(STEPS.CONECTION_ERROR);
+      context.setState(STEPS.CONNECTION_ERROR);
     },
     messageCb: (nr) => {
       context.setVotes(nr);
@@ -36,7 +36,7 @@ export function TheGame() {
         };
       case STEPS.VOTED: {
       }
-      case STEPS.ALLLOWED_TO_VOTE_AGAIN: {
+      case STEPS.ALLOWED_TO_VOTE_AGAIN: {
       }
       default:
         return {
@@ -58,6 +58,7 @@ export function TheGame() {
           Click me {context.votes}
         </button>
       ) : null}
+
       <div className="sunwrapper">
         <div id="sun">
           <div id="nightbg"></div>

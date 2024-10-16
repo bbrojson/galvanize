@@ -18,12 +18,12 @@ export function SunOrMoon() {
         Sun
       </Button>
       <h1 className="mb-20 transform font-sans text-[24px] text-xl font-bold uppercase tracking-[3px] text-white">
-        Pick your mood?
+        What time of day do you wish?
       </h1>
       <Button
         onClick={() => {
           void context.setMood(MOOD.MOON);
-          void context.setState(STEPS.INITIALIZATION);
+          void context.setState(STEPS.INITIALIZATION); // TODO - payload
         }}
         variant="moon"
         className="absolute bottom-20"

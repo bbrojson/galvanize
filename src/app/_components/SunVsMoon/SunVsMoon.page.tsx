@@ -17,7 +17,7 @@ function Component() {
     return <SunOrMoon />;
   }
 
-  if (state === STEPS.CONECTION_ERROR) {
+  if (state === STEPS.CONNECTION_ERROR) {
     return <ConnectionFailedErrorMessage />;
   }
 
