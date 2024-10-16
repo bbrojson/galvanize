@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { AppLayout } from "../../shared/AppLayout";
 
 export const STEPS = {
@@ -6,6 +12,7 @@ export const STEPS = {
   INITIALIZATION: "INITIALIZATION",
   CONNECTION_ERROR: "CONNECTION_ERROR",
   VOTED: "VOTED",
+  OUTVOTED: "OUTVOTED",
   ALLOWED_TO_VOTE_AGAIN: "ALLOWED_TO_VOTE_AGAIN",
 } as const;
 
@@ -36,6 +43,16 @@ export function SunVsMoonProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState(initialData.state);
   const [mood, setMood] = useState(initialData.mood);
   const [votes, setVotes] = useState(0);
+
+  useEffect(() => {
+    if (mood === "SUN" && votes < 0) {
+      setState(STEPS.OUTVOTED);
+    } else if (mood === "MOON" && votes > 0) {
+      setState(STEPS.OUTVOTED);
+    } else {
+      // vote of support
+    }
+  }, [votes]);
 
   const value: typeof initialData = useMemo(
     () => ({

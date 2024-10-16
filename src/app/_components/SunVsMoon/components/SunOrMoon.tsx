@@ -18,7 +18,7 @@ export function SunOrMoon() {
         Sun
       </Button>
       <h1 className="mb-20 transform font-sans text-[24px] text-xl font-bold uppercase tracking-[3px] text-white">
-        What time of day do you wish?
+        What part of the day are you today?
       </h1>
       <Button
         onClick={() => {

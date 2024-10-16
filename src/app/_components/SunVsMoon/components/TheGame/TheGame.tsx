@@ -1,63 +1,15 @@
 "use client";
 import React from "react";
 import "./sun.css";
-import { useSunWebSockets } from "./hooks/useSunWebSockets";
-import { oneByte } from "../../utils/oneByte";
-import { STEPS, useSunVsMoonContext } from "../../store/SunVsMoonProvider";
+import { useSunVsMoonContext } from "../../store/SunVsMoonProvider";
+import { SunButton } from "./SunButton";
 
 export function TheGame() {
   const context = useSunVsMoonContext();
 
-  const socket = useSunWebSockets({
-    openCb: () => {
-      setTimeout(() => context.setState(STEPS.VOTED), 2456);
-    },
-    errorCb: () => {
-      context.setState(STEPS.CONNECTION_ERROR);
-    },
-    messageCb: (nr) => {
-      context.setVotes(nr);
-    },
-    closeCb: () => {
-      context.setState(STEPS.CHOOSE_SIDE);
-    },
-  });
-
-  function handleSunset() {
-    socket?.send(oneByte(context.mood === "SUN" ? 1 : 0));
-  }
-
-  function getButtonState() {
-    switch (context.state) {
-      case STEPS.INITIALIZATION:
-        return {
-          theme: "hidden",
-          text: "Let's wait.",
-        };
-      case STEPS.VOTED: {
-      }
-      case STEPS.ALLOWED_TO_VOTE_AGAIN: {
-      }
-      default:
-        return {
-          theme: "default",
-          text: `Click me ${context.votes}`,
-        };
-    }
-  }
-  console.log("getButtonState", getButtonState());
-
   return (
     <main className={context.mood}>
-      {context.state === STEPS.VOTED ? (
-        <button
-          className="absolute bottom-9 left-0 right-0 z-10"
-          id="button"
-          onClick={handleSunset}
-        >
-          Click me {context.votes}
-        </button>
-      ) : null}
+      <SunButton />
 
       <div className="sunwrapper">
         <div id="sun">

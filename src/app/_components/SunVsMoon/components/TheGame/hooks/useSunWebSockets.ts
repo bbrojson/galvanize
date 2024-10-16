@@ -34,7 +34,7 @@ export const useSunWebSockets = ({
         const int8view = new Int8Array(buffer);
         const firstByte = int8view[0];
 
-        if (firstByte) {
+        if (firstByte !== undefined) {
           console.log("ws: message", firstByte);
           cbRef.current.messageCb(firstByte);
         } else {
