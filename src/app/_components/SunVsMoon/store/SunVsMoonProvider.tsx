@@ -47,8 +47,10 @@ export function SunVsMoonProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (mood === "SUN" && votes < 0) {
       setState(STEPS.OUTVOTED);
+      setMood("MOON");
     } else if (mood === "MOON" && votes > 0) {
       setState(STEPS.OUTVOTED);
+      setMood("SUN");
     } else {
       // vote of support
     }

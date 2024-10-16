@@ -46,6 +46,8 @@ export function SunButton() {
   }
 
   switch (context.state) {
+    case STEPS.INITIALIZATION:
+      return null;
     case STEPS.VOTED: {
       return <Button onClick={handleSunset}>Vote again {context.votes}</Button>;
     }

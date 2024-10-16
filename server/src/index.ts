@@ -29,6 +29,12 @@ const server = http.createServer(function (req, res) {
 
 const wss = new WebSocket.Server({ server });
 
+function broadcast(msg: Int8Array) {
+  wss.clients.forEach(function each(client) {
+    client.send(msg);
+  });
+}
+
 wss.on("connection", (ws) => {
   DB.statistics.connections++;
 
@@ -60,7 +66,7 @@ wss.on("connection", (ws) => {
 
     const view = new Int8Array(new ArrayBuffer(1));
     view[0] = DB.voteMeter;
-    ws.send(view);
+    broadcast(view);
   });
 
   ws.on("error", (err) => {
