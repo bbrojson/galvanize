@@ -55,6 +55,6 @@ export function SunButton() {
       );
     }
     default:
-      return null;
+      return <Button onClick={handleSunset}>Last one {context.votes}</Button>;
   }
 }
