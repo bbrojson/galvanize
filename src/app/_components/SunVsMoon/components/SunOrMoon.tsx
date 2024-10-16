@@ -11,6 +11,7 @@ export function SunOrMoon() {
         variant="sun"
         className="absolute top-20"
         onClick={() => {
+          void context.setMyMood(MOOD.SUN);
           void context.setMood(MOOD.SUN);
           void context.setState(STEPS.INITIALIZATION);
         }}
@@ -22,6 +23,7 @@ export function SunOrMoon() {
       </h1>
       <Button
         onClick={() => {
+          void context.setMyMood(MOOD.MOON);
           void context.setMood(MOOD.MOON);
           void context.setState(STEPS.INITIALIZATION); // TODO - payload
         }}

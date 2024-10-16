@@ -42,7 +42,7 @@ export function SunButton() {
   });
 
   function handleSunset() {
-    socket?.send(oneByte(context.mood === "SUN" ? 1 : 0));
+    socket?.send(oneByte(context.myMood === "SUN" ? 1 : 0));
   }
 
   switch (context.state) {
@@ -51,9 +51,11 @@ export function SunButton() {
     case STEPS.VOTED: {
       return <Button onClick={handleSunset}>Vote again {context.votes}</Button>;
     }
-    case STEPS.ALLOWED_TO_VOTE_AGAIN: {
+    case STEPS.OUTVOTED: {
       return (
-        <Button onClick={handleSunset}>Keep the mood {context.votes}</Button>
+        <Button onClick={handleSunset}>
+          You were outvoted! {context.votes}
+        </Button>
       );
     }
     default:
