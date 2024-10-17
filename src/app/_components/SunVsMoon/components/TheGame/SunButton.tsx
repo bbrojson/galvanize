@@ -71,7 +71,7 @@ export function SunButton() {
       context.setVotes(nr);
     },
     closeCb: () => {
-      context.setState(STEPS.CHOOSE_SIDE);
+      context.setState(STEPS.CONNECTION_CLOSED);
     },
   });
 

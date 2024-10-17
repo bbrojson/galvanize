@@ -19,7 +19,9 @@ export function SunOrMoon() {
         Sun
       </Button>
       <h1 className="mb-20 transform text-center font-sans text-[24px] text-xl font-bold uppercase tracking-[3px] text-white">
-        What part of the day are you today?
+        {context.state === STEPS.CONNECTION_CLOSED
+          ? `You where disconnected!`
+          : `What part of the day are you today?`}
       </h1>
       <Button
         onClick={() => {

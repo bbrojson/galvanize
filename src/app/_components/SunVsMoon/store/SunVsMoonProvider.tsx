@@ -11,6 +11,7 @@ export const STEPS = {
   CHOOSE_SIDE: "CHOOSE_SIDE",
   INITIALIZATION: "INITIALIZATION",
   CONNECTION_ERROR: "CONNECTION_ERROR",
+  CONNECTION_CLOSED: "CONNECTION_CLOSED",
   VOTED: "VOTED",
   OUTVOTED: "OUTVOTED",
 } as const;
@@ -65,6 +66,7 @@ export function SunVsMoonProvider({ children }: { children: React.ReactNode }) {
       outvoted();
       setMood("SUN");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [votes]);
 
   const value: typeof initialData = useMemo(
