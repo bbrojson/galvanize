@@ -50,7 +50,7 @@ function Button({
         </div>
       </div>
 
-      <button id="button" onClick={onClick}>
+      <button id="button" className="select-none" onClick={onClick}>
         {children}
       </button>
     </div>
