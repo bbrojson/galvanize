@@ -8,7 +8,7 @@ export function TheGame() {
   const context = useSunVsMoonContext();
 
   return (
-    <main>
+    <>
       <SunButton />
 
       <div className={`sunWrapper ${context.mood}`}>
@@ -34,6 +34,6 @@ export function TheGame() {
           <div className="star pos-star3"></div>
         </div>
       </div>
-    </main>
+    </>
   );
 }

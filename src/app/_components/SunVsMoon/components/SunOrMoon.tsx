@@ -6,7 +6,7 @@ export function SunOrMoon() {
   const context = useSunVsMoonContext();
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center bg-gradient-to-b from-[#add8e6] from-20% to-[#151843] to-80%">
+    <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-b from-[#add8e6] from-20% to-[#151843] to-80%">
       <Button
         variant="sun"
         className="absolute top-20"
