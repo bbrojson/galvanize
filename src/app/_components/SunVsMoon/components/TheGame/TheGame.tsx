@@ -8,12 +8,12 @@ export function TheGame() {
   const context = useSunVsMoonContext();
 
   return (
-    <main className={context.mood}>
+    <main>
       <SunButton />
 
-      <div className="sunwrapper">
+      <div className={`sunWrapper ${context.mood}`}>
         <div id="sun">
-          <div id="nightbg"></div>
+          <div className="night"></div>
           <div className="zzz1"></div>
           <div className="zzz2"></div>
           <div className="zzz3"></div>
