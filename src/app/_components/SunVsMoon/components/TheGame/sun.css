@@ -5,6 +5,9 @@ body {
   background-color: #151843;
   overflow: hidden;
 }
+main {
+  height: 100dvh;
+}
 .sunWrapper {
   font-size: 1px;
   padding-bottom: 40px;
