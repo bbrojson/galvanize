@@ -9,6 +9,7 @@ import {
 import { ConnectionFailedErrorMessage } from "./components/ConnectionFailedErrorMessage";
 import { SunOrMoon } from "./components/SunOrMoon";
 import { TheGame } from "./components/TheGame/TheGame";
+import { AppLayout } from "../shared/AppLayout";
 
 function Component() {
   const { state } = useSunVsMoonContext();
@@ -27,7 +28,9 @@ function Component() {
 export function SunVsMoonPage() {
   return (
     <SunVsMoonProvider>
-      <Component />
+      <AppLayout>
+        <Component />
+      </AppLayout>
     </SunVsMoonProvider>
   );
 }

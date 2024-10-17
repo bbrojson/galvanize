@@ -5,7 +5,6 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { AppLayout } from "../../shared/AppLayout";
 
 export const STEPS = {
   CHOOSE_SIDE: "CHOOSE_SIDE",
@@ -85,7 +84,7 @@ export function SunVsMoonProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <SunVsMoonContext.Provider value={value}>
-      <AppLayout>{children}</AppLayout>
+      {children}
     </SunVsMoonContext.Provider>
   );
 }
