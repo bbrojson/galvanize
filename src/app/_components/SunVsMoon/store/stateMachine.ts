@@ -40,6 +40,9 @@ export default {
         LOSE: {
           target: "outvoted",
         },
+        DRAW: {
+          target: "draw",
+        },
       },
     },
     voteWon: {
@@ -50,6 +53,13 @@ export default {
       },
     },
     outvoted: {
+      on: {
+        VOTE: {
+          target: "score",
+        },
+      },
+    },
+    draw: {
       on: {
         VOTE: {
           target: "score",

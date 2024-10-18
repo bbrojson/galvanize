@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import {
   buildUseStateMachine,
   buildMachineInitState,
@@ -24,29 +24,20 @@ const machineInitState = buildMachineInitState<{
 
 const initialData: {
   machine: typeof machineInitState;
-  votes: number;
-  setVotes: (s: number) => void;
 } = {
   machine: machineInitState,
-  votes: 0,
-  setVotes: () => void 0,
 };
 
 const SunVsMoonContext = createContext(initialData);
 
 export function SunVsMoonProvider({ children }: { children: React.ReactNode }) {
-  const [votes, setVotes] = useState(0);
-
   const machine = useStateMachine(STATE_MACHINE);
 
   const value: typeof initialData = useMemo(
     () => ({
       machine,
-
-      votes,
-      setVotes,
     }),
-    [votes, machine],
+    [machine],
   );
 
   return (
@@ -54,14 +45,6 @@ export function SunVsMoonProvider({ children }: { children: React.ReactNode }) {
       {children}
     </SunVsMoonContext.Provider>
   );
-}
-
-export function useSunVsMoonContext() {
-  const context = useContext(SunVsMoonContext);
-
-  if (!context) throw new Error("SunVsMoonContext is missing.");
-
-  return context;
 }
 
 export function useMachine() {
