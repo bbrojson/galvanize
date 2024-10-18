@@ -39,7 +39,10 @@ export function TheGameContainer() {
       }
     },
     closeCb: () => {
-      // TODO machine.send({ type: "CLOSE_CONNECTION" });
+      machine.send({
+        type: "RESET",
+      });
+      throw new Error("You where disconnected!");
     },
   });
 
