@@ -12,37 +12,29 @@ export const MOOD = {
 
 const useStateMachine = buildUseStateMachine<{
   mood: keyof typeof MOOD;
+  myMood: keyof typeof MOOD;
   votes: number;
 }>();
 
 const machineInitState = buildMachineInitState<{
   mood: keyof typeof MOOD;
+  myMood: keyof typeof MOOD;
   votes: number;
 }>()(STATE_MACHINE);
 
 const initialData: {
   machine: typeof machineInitState;
-  mood: undefined | keyof typeof MOOD;
-  myMood: undefined | keyof typeof MOOD;
   votes: number;
-  setMood: (s: keyof typeof MOOD) => void;
-  setMyMood: (s: keyof typeof MOOD) => void;
   setVotes: (s: number) => void;
 } = {
   machine: machineInitState,
-  mood: undefined,
-  myMood: undefined,
   votes: 0,
-  setMood: () => void 0,
-  setMyMood: () => void 0,
   setVotes: () => void 0,
 };
 
 const SunVsMoonContext = createContext(initialData);
 
 export function SunVsMoonProvider({ children }: { children: React.ReactNode }) {
-  const [mood, setMood] = useState(initialData.mood);
-  const [myMood, setMyMood] = useState(initialData.mood);
   const [votes, setVotes] = useState(0);
 
   const machine = useStateMachine(STATE_MACHINE);
@@ -50,14 +42,11 @@ export function SunVsMoonProvider({ children }: { children: React.ReactNode }) {
   const value: typeof initialData = useMemo(
     () => ({
       machine,
-      mood,
+
       votes,
-      myMood,
-      setMood,
       setVotes,
-      setMyMood,
     }),
-    [mood, votes, myMood, machine],
+    [votes, machine],
   );
 
   return (

@@ -23,9 +23,9 @@ interface UseMachineState<Context, State extends string> {
   context: Context;
 }
 
-interface EventObject<EventString extends string> {
+interface EventObject<Context, EventString extends string> {
   type: EventString | "RESET";
-  // TODO payload -> value?: any;
+  value?: Partial<Context>;
 }
 
 function buildReducerInitial<
@@ -44,7 +44,7 @@ function buildReducer<Context, State extends string, Events extends string>(
 ) {
   return function reducer(
     state: UseMachineState<Context, State>,
-    event: EventObject<Events>,
+    event: EventObject<Context, Events>,
   ): UseMachineState<Context, State> {
     let nextState;
     if (event.type === "RESET") {
@@ -55,8 +55,16 @@ function buildReducer<Context, State extends string, Events extends string>(
 
     if (nextState === undefined) return state;
 
+    let newContext = state.context;
+    if (event.value) {
+      newContext = {
+        ...state.context,
+        ...event.value,
+      };
+    }
+
     return {
-      context: state.context,
+      context: newContext,
       state: nextState,
     };
   };
@@ -67,7 +75,7 @@ function tsHack<Context>() {
     State extends string,
     Events extends string,
   >(config: MachineConfig<Context, State, Events>) {
-    const sendFn = useRef<(event: EventObject<Events>) => void>();
+    const sendFn = useRef<(event: EventObject<Context, Events>) => void>();
 
     const [value, dispatch] = useReducer(
       buildReducer(config),
@@ -75,7 +83,7 @@ function tsHack<Context>() {
     );
 
     if (sendFn.current === undefined) {
-      sendFn.current = function send(event: EventObject<Events>) {
+      sendFn.current = function send(event: EventObject<Context, Events>) {
         console.debug("sm => send:", event);
         dispatch(event);
       };
@@ -101,7 +109,7 @@ function tsHackType<Context>() {
   >(config: MachineConfig<Context, State, Events>) {
     return {
       ...buildReducerInitial(config),
-      send: function send(event: EventObject<Events>) {
+      send: function send(event: EventObject<Context, Events>) {
         void event;
       },
     };
@@ -113,7 +121,7 @@ type UseStateMachine<Context> = <State extends string, Events extends string>(
 ) => {
   context: Context;
   state: State;
-  send: Dispatch<EventObject<Events>>;
+  send: Dispatch<EventObject<Context, Events>>;
 };
 
 export function buildUseStateMachine<Context>(): UseStateMachine<Context> {

@@ -27,14 +27,11 @@ export function TheGameContainer() {
 
       console.log("whoIsWinning", whoIsWinning);
 
-      if (whoIsWinning === context.myMood) {
-        machine.send({ type: "WIN" });
+      if (whoIsWinning === "NONE") {
+      } else if (whoIsWinning === machine.context.myMood) {
+        machine.send({ type: "WIN", value: { mood: whoIsWinning } });
       } else {
-        machine.send({ type: "LOSE" });
-      }
-
-      if (whoIsWinning !== "NONE") {
-        context.setMood(whoIsWinning);
+        machine.send({ type: "LOSE", value: { mood: whoIsWinning } });
       }
     },
     closeCb: () => {
@@ -43,7 +40,7 @@ export function TheGameContainer() {
   });
 
   function handleSunset() {
-    socket?.send(oneByte(context.myMood === "SUN" ? 1 : 0));
+    socket?.send(oneByte(machine.context.myMood === "SUN" ? 1 : 0));
     machine.send({
       type: machine.state === "startGame" ? "VOTE_FIRST_TIME" : "VOTE",
     });
@@ -53,7 +50,7 @@ export function TheGameContainer() {
     <>
       <SunButton onClick={handleSunset} />
 
-      <div className={`sunWrapper ${context.mood}`}>
+      <div className={`sunWrapper ${machine.context.mood}`}>
         <div id="sun">
           <div className="night"></div>
           <div className="zzz1"></div>

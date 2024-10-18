@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 export default {
-  context: { mood: "SUN" as const, votes: 0 },
+  context: { mood: "SUN" as const, myMood: "SUN" as const, votes: 0 },
   id: "SunVsMoon",
   initial: "chooseSite",
   states: {
