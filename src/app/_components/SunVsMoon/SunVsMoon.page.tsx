@@ -1,28 +1,24 @@
 "use client";
 
 import React from "react";
-import {
-  STEPS,
-  SunVsMoonProvider,
-  useSunVsMoonContext,
-} from "./store/SunVsMoonProvider";
-import { ConnectionFailedErrorMessage } from "./components/ConnectionFailedErrorMessage";
-import { SunOrMoon } from "./components/SunOrMoon";
-import { TheGame } from "./components/TheGame/TheGame";
+import { SunVsMoonProvider, useMachine } from "./store/SunVsMoonProvider";
+import { ConnectionFailedErrorMessage } from "./components/ConnectionFailedErrorMessage/ConnectionFailedErrorMessage";
+import { TheGameContainer } from "./components/TheGame/TheGame.container";
 import { AppLayout } from "../shared/AppLayout";
+import { SunOrMoonContainer } from "./components/SunOrMoon.container";
 
 function Component() {
-  const { state } = useSunVsMoonContext();
+  const machine = useMachine();
 
-  if (state === STEPS.CHOOSE_SIDE) {
-    return <SunOrMoon />;
+  if (machine.state === "chooseSite") {
+    return <SunOrMoonContainer />;
   }
 
-  if (state === STEPS.CONNECTION_ERROR) {
+  if (machine.state === "connectionError") {
     return <ConnectionFailedErrorMessage />;
   }
 
-  return <TheGame />;
+  return <TheGameContainer />;
 }
 
 export function SunVsMoonPage() {
