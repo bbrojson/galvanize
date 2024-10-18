@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   useMachine,
   useSunVsMoonContext,
@@ -9,6 +9,21 @@ import { Score } from "./Score";
 export function SunButton({ onClick }: { onClick: () => void }) {
   const context = useSunVsMoonContext();
   const machine = useMachine();
+  const [text, setText] = useState("Vote");
+
+  useEffect(() => {
+    {
+      if (machine.state === "startGame") {
+        setText("Vote");
+      }
+      if (machine.state === "voteWon") {
+        setText("Bump!");
+      }
+      if (machine.state === "outvoted") {
+        setText("You were outvoted!");
+      }
+    }
+  }, [machine.state]);
 
   if (machine.state === "loading") {
     return null;
@@ -18,21 +33,7 @@ export function SunButton({ onClick }: { onClick: () => void }) {
     <div className="infoWrapper absolute bottom-9 left-0 right-0 z-10">
       {machine.state !== "startGame" && <Score votes={context.votes} />}
       <button id="button" className="select-none" onClick={onClick}>
-        {(function buttonText() {
-          if (machine.state === "startGame") {
-            return "Vote";
-          }
-          if (machine.state === "score") {
-            return "Vote again";
-          }
-          if (machine.state === "voteWon") {
-            return "Bump!";
-          }
-          if (machine.state === "outvoted") {
-            return "You were outvoted!";
-          }
-          return "Vote :)";
-        })()}
+        {text}
       </button>
     </div>
   );
