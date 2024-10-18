@@ -1,12 +1,12 @@
 # San vs Moon
 
-Small game project to test the possibility of hosting `websocket` on VPS.
+Game project testing the possibility of hosting `websocket` on VPS.
 
-![Screen](https://github.com/bbrojson/galvanize/blob/trunk/screenshot.png)
+[![Screen](https://github.com/bbrojson/galvanize/blob/trunk/screenshot.png)](https://galvanize-ecru.vercel.app/)
 
 ## Overview
 
-This project is a simple one button game where user can choose between **Sun** or **Moon**. The game uses a **State Machine** for managing transitions between different states.
+This project is a simple one-button game where user can choose between **Sun** or **Moon**. The game uses a **State Machine** for managing transitions between different states.
 
 ## Hosting
 
