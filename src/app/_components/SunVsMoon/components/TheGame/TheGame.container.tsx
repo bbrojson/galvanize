@@ -21,14 +21,7 @@ export function TheGameContainer() {
     },
     messageCb: (currentVote) => {
       const whoWins = whoIsWinning(currentVote);
-      console.log(
-        "first",
-        machine.context.votes,
-        machine.context.myMood,
-        machine.context.mood,
-        whoWins,
-        whoWins !== "NONE" ? whoWins : machine.context.mood,
-      );
+
       machine.send({
         type: "UPDATE",
         value: {
