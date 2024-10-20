@@ -20,8 +20,15 @@ export function TheGameContainer() {
       machine.send({ type: "REJECT" });
     },
     messageCb: (currentVote) => {
-      const whoWins = whoIsWinning(machine.context.votes);
-
+      const whoWins = whoIsWinning(currentVote);
+      console.log(
+        "first",
+        machine.context.votes,
+        machine.context.myMood,
+        machine.context.mood,
+        whoWins,
+        whoWins !== "NONE" ? whoWins : machine.context.mood,
+      );
       machine.send({
         type: "UPDATE",
         value: {
@@ -45,6 +52,7 @@ export function TheGameContainer() {
     });
   }
 
+  console.log("machine.context.mood", machine.context.mood);
   return (
     <>
       <SunButton onClick={handleSunset} />
