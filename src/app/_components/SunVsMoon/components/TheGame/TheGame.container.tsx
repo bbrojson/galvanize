@@ -14,7 +14,7 @@ export function TheGameContainer() {
     openCb: () => {
       setTimeout(() => {
         machine.send({ type: "RESOLVE" });
-      }, 1);
+      }, 1695);
     },
     errorCb: () => {
       machine.send({ type: "REJECT" });
