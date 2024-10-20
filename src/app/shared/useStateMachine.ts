@@ -90,7 +90,7 @@ function tsHack<Context>() {
     }
 
     const ret = useMemo(() => {
-      console.debug("sm => state:", value.state);
+      console.debug("sm => state:", value.state, value.context);
       return {
         context: value.context,
         state: value.state,

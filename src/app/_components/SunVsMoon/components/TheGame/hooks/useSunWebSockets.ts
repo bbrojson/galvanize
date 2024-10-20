@@ -17,6 +17,10 @@ export const useSunWebSockets = ({
   const cbRef = useRef({ openCb, errorCb, messageCb, closeCb });
 
   useEffect(() => {
+    cbRef.current = { openCb, errorCb, messageCb, closeCb };
+  }, [closeCb, errorCb, messageCb, openCb]);
+
+  useEffect(() => {
     if (isFetching.current) return;
     isFetching.current = true;
 
