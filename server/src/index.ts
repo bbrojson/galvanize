@@ -1,7 +1,6 @@
 import http from "node:http";
 import WebSocket from "ws";
-import fs from "node:fs";
-import path from "node:path";
+
 console.log("Hello pm2 how are you today?");
 
 const PORT = 8080; // 3443;
@@ -15,11 +14,6 @@ const DB = {
     votesSub: 0,
   },
 };
-
-// const options = {
-//   key: fs.readFileSync(path.join(__dirname, "../../../certs", "key.pem")),
-//   cert: fs.readFileSync(path.join(__dirname, "../../../certs", "cert.pem")),
-// };
 
 const server = http.createServer(function (req, res) {
   res.setHeader("Content-Type", "application/json");
