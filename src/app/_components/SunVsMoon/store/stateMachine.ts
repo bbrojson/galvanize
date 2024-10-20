@@ -43,6 +43,9 @@ export default {
         DRAW: {
           target: "draw",
         },
+        UPDATE: {
+          target: "score",
+        },
       },
     },
     voteWon: {

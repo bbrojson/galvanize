@@ -5,6 +5,7 @@ import { useMachine } from "../../store/SunVsMoonProvider";
 import { SunButton } from "./components/SunButton";
 import { useSunWebSockets } from "./hooks/useSunWebSockets";
 import { oneByte } from "../../utils/oneByte";
+import { whoIsWinning } from "../../utils/whoIsWinning";
 
 export function TheGameContainer() {
   const machine = useMachine();
@@ -19,24 +20,15 @@ export function TheGameContainer() {
       machine.send({ type: "REJECT" });
     },
     messageCb: (currentVote) => {
-      const whoIsWinning: "SUN" | "MOON" | "NONE" =
-        currentVote < 0 ? "MOON" : currentVote === 0 ? "NONE" : "SUN";
+      const whoWins = whoIsWinning(machine.context.votes);
 
-      console.log("whoIsWinning", whoIsWinning);
-
-      if (whoIsWinning === "NONE") {
-        machine.send({ type: "DRAW", value: { votes: currentVote } });
-      } else if (whoIsWinning === machine.context.myMood) {
-        machine.send({
-          type: "WIN",
-          value: { mood: whoIsWinning, votes: currentVote },
-        });
-      } else {
-        machine.send({
-          type: "LOSE",
-          value: { mood: whoIsWinning, votes: currentVote },
-        });
-      }
+      machine.send({
+        type: "UPDATE",
+        value: {
+          mood: whoWins !== "NONE" ? whoWins : machine.context.mood,
+          votes: currentVote,
+        },
+      });
     },
     closeCb: () => {
       machine.send({
