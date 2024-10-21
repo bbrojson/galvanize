@@ -6,23 +6,26 @@ import { whoIsWinning } from "../../../utils/whoIsWinning";
 
 export function SunButton({ onClick }: { onClick: () => void }) {
   const machine = useMachine();
-  const [text, setText] = useState("Vote");
 
-  useEffect(() => {
+  function getButtonText() {
     if (machine.state === "startGame") {
-      setText("Vote");
-      return;
+      return "Vote";
     }
 
     const whoWins = whoIsWinning(machine.context.votes);
 
     if (whoWins === "NONE") {
-      setText("Only one more!");
+      return "Only one more!";
     } else if (whoWins === machine.context.myMood) {
-      setText("Bump!");
-    } else {
-      setText("You were outvoted!");
+      return "Bump!";
     }
+    return "You were outvoted!";
+  }
+
+  const [text, setText] = useState(getButtonText());
+  console.log("first", text);
+  useEffect(() => {
+    setText(getButtonText());
   }, [machine.context.myMood, machine.context.votes, machine.state]);
 
   if (machine.state === "loading") {
