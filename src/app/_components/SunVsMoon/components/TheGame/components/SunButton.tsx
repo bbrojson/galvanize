@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useMachine } from "../../../store/SunVsMoonProvider";
 import { Score } from "./Score";
 import { whoIsWinning } from "../../../utils/whoIsWinning";
+import config from "src/app/app.config";
 
 export function SunButton({ onClick }: { onClick: () => void }) {
   const machine = useMachine();
@@ -17,6 +18,7 @@ export function SunButton({ onClick }: { onClick: () => void }) {
     if (whoWins === "NONE") {
       return "Only one more!";
     } else if (whoWins === machine.context.myMood) {
+      if (machine.context.votes >= config.votesLimit) return "Max!";
       return "Bump!";
     }
     return "You were outvoted!";
