@@ -7,26 +7,25 @@ import config from "src/app/app.config";
 
 export function SunButton({ onClick }: { onClick: () => void }) {
   const machine = useMachine();
+  const [text, setText] = useState("Vote");
 
-  function getButtonText() {
-    if (machine.state === "startGame") {
-      return "Vote";
-    }
-
-    const whoWins = whoIsWinning(machine.context.votes);
-
-    if (whoWins === "NONE") {
-      return "Only one more!";
-    } else if (whoWins === machine.context.myMood) {
-      if (machine.context.votes >= config.votesLimit) return "Max!";
-      return "Bump!";
-    }
-    return "You were outvoted!";
-  }
-
-  const [text, setText] = useState(getButtonText());
-  console.log("first", text);
   useEffect(() => {
+    function getButtonText() {
+      if (machine.state !== "score") {
+        return "Vote";
+      }
+
+      const whoWins = whoIsWinning(machine.context.votes);
+
+      if (whoWins === "NONE") {
+        return "Only one more!";
+      } else if (whoWins === machine.context.myMood) {
+        if (machine.context.votes >= config.votesLimit) return "Max!";
+        return "Bump!";
+      }
+      return "You were outvoted!";
+    }
+
     setText(getButtonText());
   }, [machine.context.myMood, machine.context.votes, machine.state]);
 

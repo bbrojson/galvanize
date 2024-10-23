@@ -1,6 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
 export default {
-  context: { mood: "SUN" as const, myMood: "SUN" as const, votes: 0 },
+  context: {
+    votes: 0,
+  },
   id: "SunVsMoon",
   initial: "chooseSite",
   states: {
@@ -34,37 +36,7 @@ export default {
     connectionError: {},
     score: {
       on: {
-        WIN: {
-          target: "voteWon",
-        },
-        LOSE: {
-          target: "outvoted",
-        },
-        DRAW: {
-          target: "draw",
-        },
         UPDATE: {
-          target: "score",
-        },
-      },
-    },
-    voteWon: {
-      on: {
-        VOTE: {
-          target: "score",
-        },
-      },
-    },
-    outvoted: {
-      on: {
-        VOTE: {
-          target: "score",
-        },
-      },
-    },
-    draw: {
-      on: {
-        VOTE: {
           target: "score",
         },
       },
