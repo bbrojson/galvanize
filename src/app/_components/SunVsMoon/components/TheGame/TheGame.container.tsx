@@ -23,7 +23,7 @@ export function TheGameContainer() {
       const whoWins = whoIsWinning(currentVote);
 
       machine.send({
-        type: "UPDATE",
+        type: "VOTE",
         value: {
           mood: whoWins !== "NONE" ? whoWins : machine.context.mood,
           votes: currentVote,
@@ -41,11 +41,10 @@ export function TheGameContainer() {
   function handleSunset() {
     socket?.send(oneByte(machine.context.myMood === "SUN" ? 1 : 0));
     machine.send({
-      type: machine.state === "startGame" ? "VOTE_FIRST_TIME" : "VOTE",
+      type: "VOTE",
     });
   }
 
-  console.log("machine.context.mood", machine.context.mood);
   return (
     <>
       <SunButton onClick={handleSunset} />

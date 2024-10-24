@@ -2,6 +2,8 @@
 export default {
   context: {
     votes: 0,
+    myMood: "SUN",
+    mood: "SUN",
   },
   id: "SunVsMoon",
   initial: "chooseSite",
@@ -28,7 +30,7 @@ export default {
     },
     startGame: {
       on: {
-        VOTE_FIRST_TIME: {
+        VOTE: {
           target: "score",
         },
       },
@@ -36,7 +38,7 @@ export default {
     connectionError: {},
     score: {
       on: {
-        UPDATE: {
+        VOTE: {
           target: "score",
         },
       },
